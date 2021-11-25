@@ -1,19 +1,27 @@
-import express from 'express';
-import helmet from 'helmet';
-import morgan from 'morgan';
-import cors from 'cors';
+import express from "express";
+import helmet from "helmet";
+import morgan from "morgan";
+import cors from "cors";
 
-import dwitterRouter from './router/dwitter.js';
+import dwitterRouter from "./router/dwitter.js";
 const app = express();
 
 app.use(helmet());
-app.use(morgan('tiny'));
+app.use(morgan("tiny"));
 app.use(cors());
 
-app.use('/tweets', dwitterRouter)
+app.use("/tweets", dwitterRouter);
 
+app.use((req, res, next) => {
+  res.sendStatus(404);
+});
+
+app.use((err, req, res, next) => {
+  console.lerror(err);
+  res.sendStatus(500);
+});
 
 const port = 3030;
-app.listen(port, ()=>{
-   console.log(`Server is running on port ${port}`);
-})
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
