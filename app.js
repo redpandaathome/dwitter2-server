@@ -6,6 +6,8 @@ import cors from "cors";
 import dwitterRouter from "./router/dwitter.js";
 const app = express();
 
+//✨
+app.use(express.json());
 app.use(helmet());
 app.use(morgan("tiny"));
 app.use(cors());
@@ -17,7 +19,7 @@ app.use((req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  console.lerror(err);
+  console.error(err);
   res.sendStatus(500);
 });
 
