@@ -18,6 +18,7 @@ let tweets = [
  ];
 
 export function getAll(){
+  console.log('getAll...');
    return tweets;
  }
 
