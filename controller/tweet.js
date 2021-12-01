@@ -7,9 +7,9 @@ export async function getTweets(req,res,next){
    res.status(200).json(data);
 }
 
-export function getById(req,res,next){
+export async function getById(req,res,next){
    const id = req.params.id;
-   const tweet = tweetRepository.getById(id)
+   const tweet = await tweetRepository.getById(id)
    if(tweet){
       res.status(200).json(tweet);
    } 
@@ -19,22 +19,22 @@ export function getById(req,res,next){
    }
 }
 
-export function createTweet(req,res,next){
+export async function createTweet(req,res,next){
    let {text, name, username} = req.body;
    const tweet = {
       text,
       name,
       username
    }
-   let newTweet = tweetRepository.create(tweet);
+   let newTweet = await tweetRepository.create(tweet);
    res.status(201).json(newTweet);
 }
 
-export function updateTweet(req, res, next){
+export async function updateTweet(req, res, next){
    const id = req.params.id;
    const text = req.body.text;
    
-   let tweet = tweetRepository.update(id, text);
+   let tweet = await tweetRepository.update(id, text);
    if(tweet){
       res.status(200).json(tweet);
    } else {
@@ -42,8 +42,8 @@ export function updateTweet(req, res, next){
    }
 }
 
-export function deleteTweet(req, res, next){
+export async function deleteTweet(req, res, next){
    const id = req.params.id;
-   tweetRepository.remove(id);
+   await tweetRepository.remove(id);
    res.sendStatus(204);
 }
