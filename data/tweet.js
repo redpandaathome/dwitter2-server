@@ -17,12 +17,12 @@ let tweets = [
    },
  ];
 
-export function getAll(){
+export async function getAll(){
   console.log('getAll...');
    return tweets;
  }
 
-export function getAllByUsername(username){
+export async function getAllByUsername(username){
    return tweets.filter(x=>x.username===username)
 }
 
