@@ -4,6 +4,7 @@ import morgan from "morgan";
 import cors from "cors";
 
 import twitterRouter from "./router/twitter.js";
+import {config} from './config.js';
 const app = express();
 
 //✨
