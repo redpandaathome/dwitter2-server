@@ -10,7 +10,5 @@ function required(key, defaultValue = undefined){
 }
 
 export const config = {
-   test: {
-      testA: required("SECRET")
-   }
+   port: parseInt(required("PORT")),
 }
