@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import { config } from "../config.js";
 
 export async function signup(req, res, next) {
-  console.log(`comback home`);
+ console.log("SIGNUP...");
   const { username, password, name, email, url } = req.body;
   const found = await userRepository.findByUsername(username);
   if (found) {

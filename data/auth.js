@@ -14,7 +14,6 @@ export async function findByUsername(username){
 }
 
 export async function createUser(user){
-   console.log("IF IT IS POSSIBLE");
    const created = {...user, id:(parseInt(users.length) + 1)}
    users.push(user)
    return created.id
