@@ -11,4 +11,11 @@ function required(key, defaultValue = undefined){
 
 export const config = {
    port: parseInt(required("PORT")),
+   bcrypt: {
+      saltRounds: parseInt(required("SALT_ROUNDS")),
+   },
+   jwt: {
+      secret: required("SECRET"),
+      jwtExpiresInDays: required("JWT_EXPIRES_IN_DAYS")
+   },
 }

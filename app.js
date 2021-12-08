@@ -3,6 +3,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import cors from "cors";
 
+import authRouter from "./router/auth.js";
 import twitterRouter from "./router/twitter.js";
 import {config} from './config.js';
 const app = express();
@@ -13,6 +14,7 @@ app.use(helmet());
 app.use(morgan("tiny"));
 app.use(cors());
 
+app.use("/auth", authRouter);
 app.use("/tweets", twitterRouter);
 
 app.use((req, res, next) => {
