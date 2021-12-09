@@ -29,6 +29,20 @@ const validateSignup = [
   validate,
 ];
 
-router.post("/signup", validateSignup, authController.signup);
+const validateLogin = [
+   body("username")
+     .trim()
+     .isLength({ min: 3 })
+     .withMessage("username should be at least 3 characters"),
+   validate,
+   body("password")
+     .trim()
+     .isLength({ min: 6 })
+     .withMessage("password should be at least 6 characters"),
+   validate,
+ ];
 
+router.post("/signup", validateSignup, authController.signup);
+//post!?
+router.post("/login", authController.login);
 export default router;

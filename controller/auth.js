@@ -34,6 +34,25 @@ export async function signup(req, res, next) {
   return res.status(200).json({ token, username });
 }
 
+export async function login(req, res, next) {
+   console.log("login...")
+   const { username, password } = req.body
+   const user = await userRepository.findByUsername(username);
+   if(!user){
+      return res.status(404).json({message:`user does not exist!`});
+   }
+
+   // verify username and password?
+   const isValidPassword = await bcrypt.compare(password, user.password);
+   if(!isValidPassword) {
+      return res.status(404).json({message:`Invalid information!`});
+   }
+
+   // create jwt
+   const token = await createJwtToken(user.id);
+   return res.status(200).json({ token, username});
+}
+
 async function createJwtToken(userId){
    return jwt.sign({ userId }, config.jwt.secret, {
       expiresIn: config.jwt.jwtExpiresInDays,
