@@ -18,3 +18,7 @@ export async function createUser(user){
    users.push(user)
    return created.id
 }
+
+export async function findById(userId){
+   return users.find((x)=>x.id === userId);
+}

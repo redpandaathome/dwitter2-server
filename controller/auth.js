@@ -39,13 +39,13 @@ export async function login(req, res, next) {
    const { username, password } = req.body
    const user = await userRepository.findByUsername(username);
    if(!user){
-      return res.status(404).json({message:`user does not exist!`});
+      return res.status(404).json({message:"Invalid user or password"});
    }
 
    // verify username and password?
    const isValidPassword = await bcrypt.compare(password, user.password);
    if(!isValidPassword) {
-      return res.status(404).json({message:`Invalid information!`});
+      return res.status(404).json({message:"Invalid user or password"});
    }
 
    // create jwt
@@ -57,4 +57,14 @@ async function createJwtToken(userId){
    return jwt.sign({ userId }, config.jwt.secret, {
       expiresIn: config.jwt.jwtExpiresInDays,
     });
+}
+
+export async function me(req, res, next) {
+   console.log('me...');
+   const user = await userRepository.findById(req.userId);
+   if(!user){
+      return res.status(404).json({message: 'User not found'})
+   }
+   
+   return res.status(200).json({token: req.token, username: user.username});
 }
