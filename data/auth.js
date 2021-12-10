@@ -9,7 +9,7 @@ let users = [
    },
  ];
 
-export async function findByUsername(username){
+export async function getByUsername(username){
    return users.find((x)=>x.username === username);
 }
 
@@ -19,6 +19,6 @@ export async function createUser(user){
    return created.id
 }
 
-export async function findById(userId){
+export async function getById(userId){
    return users.find((x)=>x.id === userId);
 }

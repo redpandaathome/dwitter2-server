@@ -25,12 +25,12 @@ export const isAuth = (req, res, next) => {
   }
   const token = authHeader.split(' ')[1]
 
-  // ✨ why async(err, decoded)? we are gonna use async function usesrRopository - findById...
+  // ✨ why async(err, decoded)? we are gonna use async function usesrRopository - getById...
   jwt.verify(token, config.jwt.secret, async(err, decoded)=>{
     if(err){
       return res.status(401).json(AUTH_ERROR);
     }
-    const user = await userRepository.findById(decoded.userId);
+    const user = await userRepository.getById(decoded.userId);
 
     if(!user){
       return res.status(404).json(AUTH_ERROR);

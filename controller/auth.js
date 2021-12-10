@@ -6,7 +6,7 @@ import { config } from "../config.js";
 export async function signup(req, res, next) {
  console.log("SIGNUP...");
   const { username, password, name, email, url } = req.body;
-  const found = await userRepository.findByUsername(username);
+  const found = await userRepository.getByUsername(username);
   if (found) {
     // 409...
     return res
@@ -37,7 +37,7 @@ export async function signup(req, res, next) {
 export async function login(req, res, next) {
    console.log("login...")
    const { username, password } = req.body
-   const user = await userRepository.findByUsername(username);
+   const user = await userRepository.getByUsername(username);
    if(!user){
       return res.status(404).json({message:"Invalid user or password"});
    }
@@ -61,7 +61,7 @@ async function createJwtToken(userId){
 
 export async function me(req, res, next) {
    console.log('me...');
-   const user = await userRepository.findById(req.userId);
+   const user = await userRepository.getById(req.userId);
    if(!user){
       return res.status(404).json({message: 'User not found'})
    }

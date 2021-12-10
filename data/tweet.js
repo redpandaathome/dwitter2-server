@@ -6,6 +6,8 @@ let tweets = [
      name: "Bob", // 사용자 이름
      username: "bob", // 사용자 닉네임 (아이디)
      url: "https://picsum.photos/200/300", // (optional)사용자 프로파일 사진 URL
+     createdAt: new Date().toString(), // 트윗 생성 날짜
+     userId: "1",
    },
    {
      id: "2", // 트윗 아이디
@@ -14,6 +16,8 @@ let tweets = [
      name: "wallE choi", // 사용자 이름
      username: "ellie", // 사용자 닉네임 (아이디)
      url: "", // 사용자 프로파일 사진 URL
+     createdAt: new Date().toString(), // 트윗 생성 날짜
+     userId: "2",
    },
  ];
 
