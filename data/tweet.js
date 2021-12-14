@@ -1,49 +1,63 @@
+import * as userRepository from '../data/auth.js';
+
 let tweets = [
   {
     id: "1", // 트윗 아이디
     text: "hey there", // 트윗 텍스트
     createdAt: Date.now().toString(), // 트윗 생성 날짜
-    name: "Bob", // 사용자 이름
-    username: "bob", // 사용자 닉네임 (아이디)
-    url: "https://picsum.photos/200/300", // (optional)사용자 프로파일 사진 URL
-    createdAt: new Date().toString(), // 트윗 생성 날짜
     userId: "1",
   },
   {
     id: "2", // 트윗 아이디
     text: "what's up?", // 트윗 텍스트
     createdAt: Date.now().toString(), // 트윗 생성 날짜
-    name: "wallE choi", // 사용자 이름
-    username: "ellie", // 사용자 닉네임 (아이디)
-    url: "", // 사용자 프로파일 사진 URL
-    createdAt: new Date().toString(), // 트윗 생성 날짜
-    userId: "2",
+    userId: "1",
   },
 ];
 
+//console.log(`new Date().toString():`, new Date().toString()); //Tue Dec 14 2021 09:38:03 GMT+0900 (Korean Standard Time)
+//console.log(`Date.now().toString():`, Date.now().toString()); //1639442283209
+
+
+// now bring { username, name, url } from userRepository... and mapping!
 export async function getAll() {
-  console.log("getAll...");
-  return tweets;
+  return Promise.all(
+    tweets.map( async (tweet) => {
+      console.log(`tweet.userId`, tweet.userId);
+      const { username, name, url } = await userRepository.getById(tweet.userId);
+      return { ...tweet, username, name, url }
+    })
+  )
 }
 
+// ✨ (()=>{return }), (()=>)
 export async function getAllByUsername(username) {
-  return tweets.filter((x) => x.username === username);
+  return getAll().then((tweets)=>
+    tweets.filter((tweet) => tweet.username === username )
+  );
 }
 
 export async function getById(id) {
-  return tweets.find((x) => x.id == id);
+  const found = tweets.find((t) => t.id === id);
+  if (!found) {
+    return null;
+  }
+  const { username, name, url } = await userRepository.getById(found.userId);
+  return {...found, username, name, url};
 }
 
 export async function create(text, userId) {
-  const id = parseInt(tweets.length).toString();
-  const createdAt = new Date();
+  const id = (parseInt(tweets.length)+1).toString();
+  const createdAt = Date.now().toString();
   const tweet = {
     id,
     text,
     createdAt,
     userId,
   }
-  tweets = { tweet, ...tweet };
+  // ✨ not {} but [] !
+  tweets = [ tweet, ...tweets ];
+
   return getById(tweet.id);
 }
 
@@ -52,7 +66,7 @@ export async function update(id, text) {
   if (tweet) {
     tweet.text = text;
   }
-  return tweet;
+  return getById(tweet.id);
 }
 
 export async function remove(id) {
