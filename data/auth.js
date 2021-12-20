@@ -1,4 +1,4 @@
-let users = [
+export let users = [
    {
      id: "1", // 사용자의 고유한 아이디
      username: "ellie", // 사용자 닉네임 (아이디)
@@ -14,8 +14,8 @@ export async function getByUsername(username){
 }
 
 export async function createUser(user){
-   const created = {...user, id:(parseInt(users.length) + 1)}
-   users.push(user)
+   const created = {...user, id:((parseInt(users.length) + 1)).toString()}
+   users.push(created)
    return created.id
 }
 

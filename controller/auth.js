@@ -10,8 +10,8 @@ export async function signup(req, res, next) {
   if (found) {
     // 409...
     return res
-      .sendStatus(409)
-      .json({ message: `username ${username} already exiests!` });
+      .status(409)
+      .json({ message: `username ${username} already exists!` });
   }
 
   let hashed = await bcrypt.hash(password, config.bcrypt.saltRounds);
@@ -35,7 +35,6 @@ export async function signup(req, res, next) {
 }
 
 export async function login(req, res, next) {
-   console.log("login...")
    const { username, password } = req.body
    const user = await userRepository.getByUsername(username);
    if(!user){
