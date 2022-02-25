@@ -1,7 +1,8 @@
 # dwitter2-server
 
 This project is a clone coding project of Twitter <strong>to learn better practice of Node.js</strong><br>
-🍄 [Link to the page]("https://dwitter-ym.netlify.app/")<br><br>
+🍄 [Link to the page](https://dwitter-ym.netlify.app/)
+<br><br>
 
 <img src="./img/dwitter-auth.png" width ="300"/>
 <img src="./img/dwitter-ss.png" width ="300">
